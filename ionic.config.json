@@ -1,0 +1,7 @@
+{
+  "name": "bycrousty-camarero",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
