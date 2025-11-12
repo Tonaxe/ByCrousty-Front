@@ -1,0 +1,17 @@
+<ion-content>
+  <div class="scan-wrapper">
+    <div class="scan-container">
+      <img src="assets/logo.webp" alt="ByCrousty Logo" class="logo" />
+
+      <h2>Escanea el código del cliente</h2>
+      <p>Apunta la cámara hacia el código QR</p>
+
+      <div class="scan-frame">
+        <video id="video" autoplay playsinline></video>
+      </div>
+
+      <ion-button expand="block" (click)="startScan()">Iniciar Escaneo</ion-button>
+      <ion-button expand="block" color="secondary" (click)="goBack()">Volver</ion-button>
+    </div>
+  </div>
+</ion-content>
