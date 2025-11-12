@@ -1,0 +1,22 @@
+<ion-content class="ion-padding">
+  <div class="cliente-container">
+    <h2>Resultado del escaneo</h2>
+
+    <ion-card *ngIf="qrData">
+      <ion-card-header>
+        <ion-card-title>Contenido del QR</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ qrData }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" color="primary" routerLink="/scan">
+      Escanear otro código
+    </ion-button>
+
+    <ion-button expand="block" color="secondary" routerLink="/home">
+      Volver al inicio
+    </ion-button>
+  </div>
+</ion-content>

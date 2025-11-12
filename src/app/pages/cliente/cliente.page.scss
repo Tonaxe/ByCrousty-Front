@@ -1,0 +1,16 @@
+ion-content {
+    --background: var(--ion-color-dark);
+}
+
+h2 {
+    color: var(--ion-color-primary);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+ion-card {
+    background: #222;
+    border: 1px solid var(--ion-color-primary);
+    color: var(--ion-color-primary);
+    text-align: center;
+}

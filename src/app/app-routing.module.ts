@@ -18,8 +18,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/scan/scan.module').then((m) => m.ScanPageModule),
   },
+  {
+    path: 'cliente',
+    loadChildren: () =>
+      import('./pages/cliente/cliente.module').then((m) => m.ClientePageModule),
+  },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

@@ -17,7 +17,7 @@ export class ScanPage implements OnDestroy {
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController
-  ) {}
+  ) { }
 
   async startScan() {
     try {
@@ -31,22 +31,18 @@ export class ScanPage implements OnDestroy {
         setTimeout(() => this.startScan(), 700);
         return;
       }
-      
-      this.codeReader = new BrowserQRCodeReader();
 
-      const result = await this.codeReader.decodeOnceFromVideoDevice(
-        undefined,
-        'video'
-      );
+      this.codeReader = new BrowserQRCodeReader();
+      const result = await this.codeReader.decodeOnceFromVideoDevice(undefined, 'video');
 
       this.stopScan();
 
-      const alert = await this.alertCtrl.create({
-        header: 'Código escaneado',
-        message: `Contenido: <b>${result.getText()}</b>`,
-        buttons: ['OK'],
+      const qrText = result.getText();
+
+      this.navCtrl.navigateRoot(`/cliente`, {
+        state: { qrData: qrText }
       });
-      await alert.present();
+
     } catch (err) {
       console.error('Error al escanear:', err);
       const alert = await this.alertCtrl.create({
@@ -59,21 +55,17 @@ export class ScanPage implements OnDestroy {
   }
 
   async prepareCamera() {
-    try {
-      this.stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' },
+    this.stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' },
+    });
+    if (this.videoElem) {
+      this.videoElem.srcObject = this.stream;
+      await new Promise<void>((resolve) => {
+        this.videoElem!.onloadedmetadata = () => {
+          this.videoElem!.play();
+          resolve();
+        };
       });
-      if (this.videoElem) {
-        this.videoElem.srcObject = this.stream;
-        await new Promise<void>((resolve) => {
-          this.videoElem!.onloadedmetadata = () => {
-            this.videoElem!.play();
-            resolve();
-          };
-        });
-      }
-    } catch (err) {
-      throw new Error('No se pudo acceder a la cámara');
     }
   }
 
