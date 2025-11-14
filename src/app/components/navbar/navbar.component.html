@@ -1,0 +1,26 @@
+<ion-header class="app-navbar">
+  <ion-toolbar>
+    <div class="nav-inner">
+      <button class="icon-btn left" (click)="onScan()" aria-label="Scan">
+        <i class="bi bi-qr-code-scan"></i>
+      </button>
+
+      <div class="logo-wrap">
+        <button class="logo-btn" (click)="goHome()" aria-label="Home">
+          <img src="assets/logo.webp" alt="ByCrousty Logo" />
+        </button>
+      </div>
+
+      <div class="right-group">
+        <button class="icon-btn notif" (click)="onNotifications()" aria-label="Notifications">
+          <i class="bi bi-bell"></i>
+          <span class="badge">3</span>
+        </button>
+
+        <button class="icon-btn logout" (click)="logout()" aria-label="Logout">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>

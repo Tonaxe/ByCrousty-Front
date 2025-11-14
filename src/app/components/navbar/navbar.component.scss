@@ -1,0 +1,147 @@
+/* Navbar styling: dark / transparent toolbar, yellow icons, badge placement */
+.app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: transparent;
+}
+
+.app-navbar ion-toolbar {
+  --background: transparent;
+  height: 56px;
+  min-height: 56px;
+  padding: 0;
+}
+
+/* configurable side padding so both left/right spacing can be tuned easily */
+:host {
+  --nav-side-pad-left: calc(18px + env(safe-area-inset-left));
+  /* increased right padding so logout icon has more space from viewport edge */
+  --nav-side-pad-right: calc(28px + env(safe-area-inset-right));
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* respect safe areas on devices with notch */
+  padding: calc(6px + env(safe-area-inset-top)) var(--nav-side-pad-right) 6px var(--nav-side-pad-left);
+}
+
+.icon-btn {
+  background: transparent !important;
+  border: none;
+  font-size: 22px;
+  color: var(--brand-yellow, #f2c100);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  position: relative; /* allow absolute badge positioning */
+}
+
+/* left icon uses the nav-inner padding; no extra margin so spacing matches right */
+.icon-btn.left {
+  margin-left: 0;
+}
+
+
+.logo-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  /* wrapper does not capture pointer events so it doesn't block side icons */
+  pointer-events: none;
+}
+
+.logo-wrap .logo-btn {
+  pointer-events: auto; /* only the button is clickable */
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.logo-wrap img {
+  height: 40px;
+  object-fit: contain;
+}
+
+.right-group {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  align-items: center;
+  /* match the left padding used in .nav-inner so left and right spacing are equal */
+  margin-right: var(--nav-side-pad-right);
+}
+
+.notif .badge {
+  background: #ff3b30;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  /* position the badge closer to the icon */
+  position: absolute;
+  top: 6px;
+  right: -4px;
+  display: inline-block;
+  /* pulse animation to attract attention */
+  animation: badge-pulse 1500ms ease-in-out infinite;
+}
+
+/* pulse keyframes: fade and slightly scale the badge to attract attention */
+@keyframes badge-pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .notif .badge {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* prevent logout icon from sticking to the absolute right edge */
+.icon-btn.logout {
+  margin-right: 0; /* no extra offset; margin comes from .right-group/nav-inner padding */
+}
+
+/* make icon <i> elements slightly larger and vertically centered */
+.icon-btn i {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* If any toggle/menu components are being injected into the header by other libraries or templates,
+   hide them here so the navbar only shows the intended icons. This is defensive CSS to remove
+   unexpected toggle buttons the UI might render. */
+.app-navbar ion-toggle,
+.app-navbar .toggle,
+.app-navbar .menu-toggle,
+.app-navbar .ion-toggle,
+.app-navbar .toggle-button,
+.app-navbar ion-menu-button {
+  display: none !important;
+}

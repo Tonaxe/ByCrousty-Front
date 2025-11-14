@@ -86,4 +86,15 @@ export class ScanPage implements OnDestroy {
   ngOnDestroy() {
     this.stopScan();
   }
+
+  // Ionic lifecycle: when the view has entered, start scanning automatically
+  ionViewDidEnter() {
+    // startScan is async but we don't await here to keep the lifecycle quick
+    this.startScan();
+  }
+
+  // Ensure scanning stops when leaving the page
+  ionViewWillLeave() {
+    this.stopScan();
+  }
 }

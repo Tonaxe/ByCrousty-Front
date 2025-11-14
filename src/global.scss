@@ -18,3 +18,9 @@ ion-item {
   --background: #111;
   --color: var(--ion-color-primary);
 }
+
+/* When the fixed navbar is visible, ensure page content is pushed down so it's not hidden under the navbar */
+.with-navbar .ion-page,
+.with-navbar ion-content {
+  padding-top: calc(56px + env(safe-area-inset-top)) !important; /* account for status bar/notch */
+}

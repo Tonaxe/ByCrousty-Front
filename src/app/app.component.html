@@ -1,3 +1,4 @@
-<ion-app>
+<ion-app [class.with-navbar]="showNavbar">
+  <app-navbar *ngIf="showNavbar"></app-navbar>
   <ion-router-outlet [animated]="true" [swipeGesture]="true"></ion-router-outlet>
 </ion-app>

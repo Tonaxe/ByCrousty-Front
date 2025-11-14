@@ -13,8 +13,15 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
+  showNavbar = true;
 
   constructor(private router: Router, private navCtrl: NavController, private auth: AuthService) {
+    // Initialize whether navbar should be shown for the current url
+    const cur = this.router.url || '';
+    this.showNavbar = !(cur.startsWith('/login') || cur.startsWith('/logout'));
+
+    // (removed temporary router event logging)
+
     // On each navigation start (except when going to login), validate the session
     this.router.events
       .pipe(
@@ -23,6 +30,8 @@ export class AppComponent implements OnDestroy {
       )
       .subscribe((ev: NavigationStart) => {
         const url = ev.url?.split('?')[0] || '';
+        // show/hide navbar depending on route
+        this.showNavbar = !(url === '/login' || url === '/logout');
         if (url === '/login' || url === '/logout') return; // skip checks for login/logout
 
         // Validate session; if invalid, logout and redirect to login

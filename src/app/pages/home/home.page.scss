@@ -67,4 +67,20 @@ ion-button[color='secondary'] {
     --background: #222;
     --color: var(--ion-color-primary);
     border: 1.5px solid var(--ion-color-primary);
+    --border-radius: 14px;
+}
+
+/* Ensure the native button element inside ion-button respects the radius across Ionic versions */
+ion-button::part(native) {
+    border-radius: 14px;
+}
+
+/* Stronger fallbacks for different Ionic renderers / themes */
+ion-button,
+ion-button::part(native),
+ion-button .button-native,
+ion-button button,
+ion-button .button-inner {
+    border-radius: 14px !important;
+    overflow: hidden !important;
 }
